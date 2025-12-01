@@ -73,7 +73,7 @@ export default function Categories({navigation}) {
                     <View style={style.modalView}> 
 
                         <Text style={style.modalText}>
-                            Tem certeza que deseja excluir a categoria?
+                            Tem certeza que deseja excluir o livro?
                         </Text>
 
                         <View style={style.modalButtons}>
@@ -94,7 +94,7 @@ export default function Categories({navigation}) {
             {(view === 'list') ? (
                 <View>
                     <TouchableOpacity style={style.button} onPress={() => setView('form')}>
-                        <Text style={style.textButton}>Adicionar Categoria</Text>
+                        <Text style={style.textButton}>Adicionar Livro</Text>
                     </TouchableOpacity>
 
                     <FlatList
@@ -111,7 +111,7 @@ export default function Categories({navigation}) {
                         setSelectedCategory(null)
                         loadCategories()
                     }}>
-                        <Text style={style.textButton}>Ver Categorias</Text>
+                        <Text style={style.textButton}>Ver Livros</Text>
                     </TouchableOpacity>
 
                     <AddCategory categoryToEdit={selectedCategory} ></AddCategory>

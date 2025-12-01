@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 const Stack = createNativeStackNavigator();
 
 
-import Livros from './screens/Livros'
+import Livros from './screens/livros'
 
 export default function App() {
   return (
@@ -12,7 +12,7 @@ export default function App() {
       <Stack.Navigator initialRouteName='Home'>
         
         <Stack.Screen 
-        name="Home" component={Categories} options={{title: 'Início'}}/>
+        name="Home" component={Livros} options={{title: 'Bem-vindo(a)'}}/>
         
        
 

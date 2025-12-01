@@ -4,7 +4,7 @@ import { Picker, TextInput } from "react-native";
 import { createCategory, updateCategory } from "../services/Category.service";
 
 export default function AddCategory({ categoryToEdit }) {
-    const [nome, setNome] = useState('')
+    const [titulo, setTitulo] = useState('')
     const [editingId, setEditingId] = useState()
 
     useEffect(() => {
@@ -20,7 +20,7 @@ export default function AddCategory({ categoryToEdit }) {
 
     async function save() {
         const obj = {
-            nome
+            titulo
         }
 
         try {
@@ -38,19 +38,19 @@ export default function AddCategory({ categoryToEdit }) {
     }
 
     function clearForm() {
-        setNome('')
+        setTitulo('')
         setEditingId('')
     }
 
     return (
         <View style={style.container}>
             <Text style={style.title}>
-                Adicionar nova categoria
+                Adicionar novo livro
             </Text>
             <TextInput
                 value={nome}
                 onChangeText={setNome}
-                placeholder="Digite o nome.."
+                placeholder="Digite o titulo.."
             />
             <TouchableOpacity 
                 style={style.button}
