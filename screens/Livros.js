@@ -24,10 +24,10 @@ export default function Categories({navigation}) {
         return (
             <View style={style.card}>
                 <Text style={style.textButton}>
-                    Nome
+                    Titulo
                 </Text>
                 <Text style={style.cardItem}>
-                    {item.nome}
+                    {item.titulo}
                 </Text>
 
                 <TouchableOpacity style={style.button} onPress={() => {
