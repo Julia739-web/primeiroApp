@@ -1,18 +1,26 @@
 import { useEffect, useState } from "react";
 import { TouchableOpacity, View, Text, StyleSheet } from "react-native";
 import { Picker, TextInput } from "react-native";
-import { createCategory, updateCategory } from "../services/Category.service";
+import { createLivros, updateLivros } from "../services/Category.service";
 
-export default function AddCategory({ categoryToEdit }) {
+export default function AddLivros({ categoryToEdit }) {
     const [titulo, setTitulo] = useState('')
-    const [editingId, setEditingId] = useState()
+    const [editingId, setEditingId] = useState(null)
+    const [status, setStatus] = useState('')
+    const [descricao, setDescricao] = useState('')
+    const [imagem, setImagem] = useState('')
+
 
     useEffect(() => {
         console.log('categoryToEdit', categoryToEdit);
         if (categoryToEdit) {
-            setNome(categoryToEdit.nome)
-            setEditingId(categoryToEdit.id)
-        } else {
+            setTitulo(categoryToEdit.titulo)
+             setStatus(categoryToEdit.status);
+             setDescricao(categoryToEdit.descricao);
+              setEditingId(categoryToEdit.id);
+              setImagem(categoryToEdit.imagem)
+            
+            } else {
             clearForm()
         }
         
@@ -20,16 +28,20 @@ export default function AddCategory({ categoryToEdit }) {
 
     async function save() {
         const obj = {
-            titulo
+            titulo: titulo,
+            status: status,
+            descricao: descricao,
+            imagem: imagem
         }
 
+       
         try {
             clearForm()
 
             if (editingId) {
-                const response = await updateCategory(editingId, obj)
+                const response = await updateLivros(editingId, obj)
             } else {
-                const response = await createCategory(obj)
+                const response = await createLivros(obj)
             }
             
         } catch {
@@ -39,19 +51,36 @@ export default function AddCategory({ categoryToEdit }) {
 
     function clearForm() {
         setTitulo('')
-        setEditingId('')
+        setDescricao('')
+         setStatus('')
+        setEditingId(null)
+         setImagem('')
     }
 
     return (
         <View style={style.container}>
             <Text style={style.title}>
-                Adicionar novo livro
+                Adicionar livro
             </Text>
             <TextInput
-                value={nome}
-                onChangeText={setNome}
+                value={titulo}
+                onChangeText={setTitulo}
                 placeholder="Digite o titulo.."
             />
+            <TextInput
+                value={status}
+                onChangeText={setStatus}
+                placeholder="Digite o status"
+                style={style.input}
+            />
+
+            <TextInput
+                value={descricao}
+                onChangeText={setDescricao}
+                placeholder="Digite a descrição"
+                style={style.input}
+            />
+
             <TouchableOpacity 
                 style={style.button}
                 onPress={save}>
@@ -74,7 +103,7 @@ const style = StyleSheet.create({
         fontSize: 24,
         fontWeight: 'bold',
         marginBottom: 20,
-        color: '#FF0000',
+        color: '#4d32017e',
         textAlign: 'center'
     },
     button: {

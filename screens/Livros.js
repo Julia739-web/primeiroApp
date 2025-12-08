@@ -1,34 +1,46 @@
 import { useState, useEffect } from "react";
-import { TouchableOpacity, View, Text, FlatList, ScrollView, Modal } from "react-native";
+import { TouchableOpacity, View, Text, FlatList, ScrollView, Modal, Image } from "react-native";
 import { StyleSheet } from "react-native";
-import { deleteCategory, getCategories } from "../services/Category.service";
-import AddCategory from "../components/AddCategory";
+import { deleteLivros, getLivros } from "../services/Category.service";
+import AddCategory from "../components/AddLivros";
 
-export default function Categories({navigation}) {
+export default function Livros({navigation}) {
     const [view, setView] = useState('list')
-    const [categories, setCategories] = useState([])
+    const [livros, setLivros] = useState([])
     const [selectedCategory, setSelectedCategory] = useState()
     const [isDeleteConfirm, setIsDeleteConfirm] = useState(false)
 
-    const loadCategories = async () => {
-        const data = await getCategories()
-        setCategories(data);
+    const loadLivros = async () => {
+        const data = await getLivros()
+        setLivros(data);
     }
 
     useEffect(() => {
-        loadCategories()
+        loadLivros()
     }, [])
 
     const renderItem = ( { item } ) => {
         console.log(item)
         return (
+           
             <View style={style.card}>
+
+            <View style={style.row}>
+                {/* IMAGEM DO ITEM */}
+                <Image
+                    source={{ uri: item.imagem }}   // ← URL da internet
+                    style={style.image}
+                />
+
+            <View>
                 <Text style={style.textButton}>
-                    Nome
+                    Titulo
                 </Text>
                 <Text style={style.cardItem}>
-                    {item.nome}
+                    {item.titulo}
                 </Text>
+            </View>
+                </View>
 
                 <TouchableOpacity style={style.button} onPress={() => {
                     setView('form')
@@ -54,9 +66,9 @@ export default function Categories({navigation}) {
     }
 
     const confirmDelete = async () => {
-       const response = await deleteCategory(selectedCategory.id)
+       const response = await deleteLivros(selectedCategory.id)
         onClose()
-        loadCategories()
+        loadLivros()
     }
 
     return (
@@ -94,11 +106,11 @@ export default function Categories({navigation}) {
             {(view === 'list') ? (
                 <View>
                     <TouchableOpacity style={style.button} onPress={() => setView('form')}>
-                        <Text style={style.textButton}>Adicionar Livro</Text>
+                        <Text style={style.textButton}>Adicionar novo Livro</Text>
                     </TouchableOpacity>
 
                     <FlatList
-                        data={categories}
+                        data={livros}
                         keyExtractor={item => item.id.toString()}
                         renderItem={renderItem}
                     />
@@ -109,7 +121,7 @@ export default function Categories({navigation}) {
                     <TouchableOpacity style={style.button} onPress={() => {
                         setView('list')
                         setSelectedCategory(null)
-                        loadCategories()
+                        loadLivros()
                     }}>
                         <Text style={style.textButton}>Ver Livros</Text>
                     </TouchableOpacity>
@@ -133,27 +145,27 @@ const style = StyleSheet.create({
         fontSize: 24,
         fontWeight: 'bold',
         marginBottom: 20,
-        color: '#FF0000',
+        color: '#a14b0321',
         textAlign: 'center'
     },
     button: {
-        backgroundColor: '#000',
+        backgroundColor: '#442b05cb',
         color: '#FFF',
         padding: 15,
         borderRadius: 10
     },
     textButton: {
-        color: '#fff',
+        color: '#9b9b9bff',
         fontWeight: 'bold'
     },
     card: {
-        backgroundColor: '#1a2b4a',
+        backgroundColor: '#a87913cc',
         padding: 30,
         borderRadius: 10,
         marginBottom: 20
     },
     cardItem: {
-        color: '#fff',
+        color: '#331d00',
         marginBottom: 10
     },
     modalContainer: {
@@ -164,7 +176,7 @@ const style = StyleSheet.create({
     },
     modalView: {
         margin:20,
-        backgroundColor: '#fff',
+        backgroundColor: '#361d006c',
         borderRadius: 20,
         justifyContent: 'center',
         alignItems: 'center',
@@ -175,7 +187,7 @@ const style = StyleSheet.create({
         fontSize: 24,
         fontWeight: 'bold',
         marginBottom: 20,
-        color: '#FF0000',
+        color: '#c9c9c9ff',
         textAlign: 'center'
     },
     closeButton: {
@@ -184,7 +196,7 @@ const style = StyleSheet.create({
         borderRadius: 10
     },
     confirmButton: {
-        backgroundColor: '#6C7570',
+        backgroundColor: '#9782094b',
         padding: 15,
         borderRadius: 10
     },
@@ -192,7 +204,21 @@ const style = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         width: '100%'
-    }
-    
-
+    },
+    image: {
+    width: 60,
+    height: 60,
+    borderRadius: 8,
+    marginRight: 10,
+    backgroundColor: "#eee" // só para quando a imagem estiver carregando
+},
+row: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 10
+},
+cardDescription: {
+    color: "#555",
+    fontSize: 14
+}
 })

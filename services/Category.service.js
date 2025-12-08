@@ -1,7 +1,7 @@
 const url = 'http://localhost:3000'
 
-export async function getCategories() {
-    const request = `${url}/categorias`
+export async function getLivros() {
+    const request = `${url}/livros`
     try {
         const response = await fetch(request, {
             method: 'GET'
@@ -13,15 +13,15 @@ export async function getCategories() {
     }
 }
 
-export async function createCategory(category) {
-    const request = `${url}/categorias`;
+export async function createLivros(livros) {
+    const request = `${url}/livros`;
     try {
         const response = await fetch(request, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(category)
+            body: JSON.stringify(livros)
         })
         const data = await response.json()
         return data
@@ -31,8 +31,8 @@ export async function createCategory(category) {
     }
 }
 
-export async function updateCategory(id, category) {
-    const request = `${url}/categorias/${id}`
+export async function updateLivros(id, livros) {
+    const request = `${url}/livros/${id}`
 
     try {
         const response = await fetch(request, {
@@ -40,7 +40,7 @@ export async function updateCategory(id, category) {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(category)
+            body: JSON.stringify(livros)
         })
 
         const data = await response.json()
@@ -50,8 +50,8 @@ export async function updateCategory(id, category) {
     }
 }
 
-export async function deleteCategory(id) {
-    const request = `${url}/categorias/${id}`
+export async function deleteLivros(id) {
+    const request = `${url}/livros/${id}`
     try {
         const response = await fetch(request, {
             method: 'DELETE'

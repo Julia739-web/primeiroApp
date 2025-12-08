@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 const Stack = createNativeStackNavigator();
 
 
-import Livros from './screens/livros'
+import Livros from './screens/Livros'
 
 export default function App() {
   return (
