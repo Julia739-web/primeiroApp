@@ -12,6 +12,8 @@ export default function Livros({navigation}) {
 
     const loadLivros = async () => {
         const data = await getLivros()
+        console.log(data);
+        
         setLivros(data);
     }
 
@@ -39,6 +41,21 @@ export default function Livros({navigation}) {
                 <Text style={style.cardItem}>
                     {item.titulo}
                 </Text>
+
+                <Text style={style.textButton}>
+                    Descricao
+                </Text>
+                <Text style={style.cardItem}>
+                    {item.descricao}
+                </Text>
+
+                <Text style={style.textButton}>
+                    Status
+                </Text>
+                <Text style={style.cardItem}>
+                    {item.status}
+                </Text>
+
             </View>
                 </View>
 

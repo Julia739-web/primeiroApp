@@ -81,6 +81,13 @@ export default function AddLivros({ categoryToEdit }) {
                 style={style.input}
             />
 
+           <TextInput
+                value={imagem}
+                onChangeText={setImagem}
+                placeholder="Link da imagem"
+                style={style.input}
+            />
+
             <TouchableOpacity 
                 style={style.button}
                 onPress={save}>
